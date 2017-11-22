@@ -1,13 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+  	<header></header>
+  	<div class="tab">
+  			<div class="tab-item">
+  					商品
+  			</div>
+  			<div class="tab-item">
+  					评论
+  			</div>
+  			<div class="tab-item">
+  					商家
+  			</div>
+  	</div>
     <router-view/>
   </div>
 </template>
 
 <script>
+	import header from './components/header/header'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+  	header
+  }
+  
 }
 </script>
 

@@ -69,6 +69,7 @@
 						}
 						.name{
 							line-height: 18px;
+							font-weight: bold;
 						}
 					}
 					.description{

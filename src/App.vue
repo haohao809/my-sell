@@ -35,5 +35,14 @@ export default {
 }
 .tab{
 			margin-top: 134px;
+			display: flex;
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			.tab-item{
+				flex: 1;
+				text-align: center;
+				align-items: center;
+			}
 		}
 </style>

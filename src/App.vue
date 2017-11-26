@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  	<header></header>
+  	<v-header></v-header>
   	<div class="tab">
   			<div class="tab-item">
   					商品
@@ -17,23 +17,21 @@
 </template>
 
 <script>
-	import header from './components/header/header'
+	import vHeader from './components/header/header'
 export default {
   name: 'app',
   components: {
-  	header
+  	vHeader
   }
   
 }
 </script>
 
-<style>
+<style lang='scss'>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
+.tab{
+			margin-top: 134px;
+		}
 </style>

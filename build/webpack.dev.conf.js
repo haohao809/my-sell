@@ -50,6 +50,39 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
   ]
 })
+//配置api接口
+const express = require('express')
+const app = express()
+var axios = require('axios')
+var appData = require('../data.json')
+var seller = appData.seller
+var goods = appData.goods
+var ratings = appData.ratings
+
+var apiRoutes = express.Router()
+app.use('/api', apiRoutes)
+
+apiRoutes.get('/seller', function (req, res) {
+  res.json({
+    errno: 0,
+    data: seller
+  });
+})
+
+apiRoutes.get('/goods', function (req, res) {
+	  res.json({
+	    errno: 0,
+	    data: goods
+	  });
+})
+
+apiRoutes.get('/ratings', function (req, res) {
+  res.json({
+    errno: 0,
+    data: ratings
+  });
+})
+
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port

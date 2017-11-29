@@ -8,6 +8,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+  //配置api接口
+const express = require('express')
+const app = express()
+var axios = require('axios')
+var appData = require('../data.json')
+var seller = appData.seller
+var goods = appData.goods
+var ratings = appData.ratings
+
+var apiRoutes = express.Router()
+app.use('/api', apiRoutes)
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -16,6 +28,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devtool: config.dev.devtool,
 
   // these devServer options should be customized in /config/index.js
+   
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: true,
@@ -33,6 +46,28 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before(app){    	
+			app.get('/api/seller', function (req, res) {
+			  res.json({
+			    errno: 0,
+			    data: seller
+			  })
+			}),
+			
+			app.get('/api/goods', function (req, res) {
+				  res.json({
+				    errno: 0,
+				    data: goods
+				  })
+			}),
+			
+			app.get('/api/ratings', function (req, res) {
+			  res.json({
+			    errno: 0,
+			    data: ratings
+			  })
+			})
     }
   },
   plugins: [
@@ -50,38 +85,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
   ]
 })
-//配置api接口
-const express = require('express')
-const app = express()
-var axios = require('axios')
-var appData = require('../data.json')
-var seller = appData.seller
-var goods = appData.goods
-var ratings = appData.ratings
 
-var apiRoutes = express.Router()
-app.use('/api', apiRoutes)
-
-apiRoutes.get('/seller', function (req, res) {
-  res.json({
-    errno: 0,
-    data: seller
-  });
-})
-
-apiRoutes.get('/goods', function (req, res) {
-	  res.json({
-	    errno: 0,
-	    data: goods
-	  });
-})
-
-apiRoutes.get('/ratings', function (req, res) {
-  res.json({
-    errno: 0,
-    data: ratings
-  });
-})
 
 
 module.exports = new Promise((resolve, reject) => {

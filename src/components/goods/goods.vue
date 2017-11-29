@@ -19,7 +19,7 @@
 <script>
 	export default{
 		created(){
-			const url = 'api/goods';
+			const url = '/api/goods';
 			this.$http.get(url).then((response) =>{
 				response = response.body;
 				if(response.errno === 0){

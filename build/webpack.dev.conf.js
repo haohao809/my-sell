@@ -49,12 +49,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
     before(app){    	
 			app.get('/api/seller', function (req, res) {
+
 			  res.json({
 			    errno: 0,
 			    data: seller
 			  })
-			}),
-			
+			}),			
 			app.get('/api/goods', function (req, res) {
 				  res.json({
 				    errno: 0,

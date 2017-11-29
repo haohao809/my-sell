@@ -9,11 +9,11 @@ export default new Router({
     {
       path: '/',
       name: 'Goods',
-      redirect: Goods,
+      redirect: {name: 'goods'},
     },
     {
     	path: '/goods',
-    	name: 'name',
+    	name: 'goods',
     	component: Goods   	
     }
   ]

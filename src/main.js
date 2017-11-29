@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource';
 
+import axios from 'axios'
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(VueResource);
 import './common/stylus/index.styl'

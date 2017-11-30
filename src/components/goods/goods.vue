@@ -12,9 +12,21 @@
 		<div class="foods-wrapper">
 			<ul>
 				<li v-for='(item,index) in goods'>
-					<h1>{{item.name}}</h1>
+					<h1 class='title'>{{item.name}}</h1>
 					<ul>
-						<li v-for = 'food in item.foods'></li>
+						<li v-for = 'food in item.foods' class='food-item'>
+							<div class="icon">
+								<img width="57" height="57" :src='food.icon' />
+							</div>
+							<div class="content">
+								<h2 class="name">{{food.name}}</h2>
+								<p class="desc">{{food.description}}</p>
+								<div class="extra">
+									<span class="count">月售{{food.sellCount}}份</span>
+									<span>好评率{{food.rating}}%</span>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -103,7 +115,44 @@
 			}
 
 		}
-		
+		.foods-wrapper{
+			flex: 1;
+			.title{
+				font-size: 12px;
+				height: 26px;
+				line-height: 26px;
+				background: #f3f5f7;
+				color:#93999f;
+				padding-left: 12px;
+				border-left: 2px solid #d9dde1
+			}
+			.food-item{
+				display: flex;
+				margin: 18px;
+				.icon{
+					margin-right: 10px;
+				}
+				.content{
+					flex: 1;
+					.name{
+						height: 14px;
+						line-height: 14px;
+						font-size: 14px;
+						color: #07111b;
+						margin: 2px 0 8px 0;
+					}
+					.desc{
+						font-size: 10px;
+						color: #93999f;
+						margin-bottom: 8px;
+					}
+					.extra{
+						font-size: 10px;
+						color: #93999f;
+					}
+				}
+			}
+		}
 		
 	}
 </style>

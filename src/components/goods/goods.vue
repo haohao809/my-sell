@@ -21,12 +21,17 @@
 </template>
 
 <script>
+	import Scroll from '@/components/scroll/scroll'
+	import Shopcart from '@/components/shopcart/shopcart'
 	export default{
 		data(){
 			return {
 				goods: []
 			}
 		},
+//		components: {
+//			Scroll
+//		},
 		created(){
 			const url = '/api/goods';
 			this.$http.get(url).then((response) =>{
@@ -58,10 +63,13 @@
 			.menu-item{
 				height: 54px;
 				width: 56px;
+				padding: 0 12px;
+				line-height: 14px;
+				display: table;
 				.text{
 					font-size: 12px;
+					display: table-cell;
 					vertical-align: middle;
-					display: inline-block;
 					width: 56px;
 				}
 			}

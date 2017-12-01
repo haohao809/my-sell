@@ -9,7 +9,7 @@
 				</li>
 			</ul>
 		</scroll>
-		<div class="foods-wrapper">
+		<scroll class="foods-wrapper" :probeType='probeType1' :data='goods'>
 			<ul>
 				<li v-for='(item,index) in goods'>
 					<h1 class='title'>{{item.name}}</h1>
@@ -25,12 +25,19 @@
 									<span class="count">月售{{food.sellCount}}份</span>
 									<span>好评率{{food.rating}}%</span>
 								</div>
+								<div class="price">
+									<span class="now">￥{{food.price}}</span>
+									<span class="old" v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
+								</div>
+								<div class="cartcontral-wrapper">
+									<cartcontral :food='food'></cartcontral>
+								</div>
 							</div>
 						</li>
 					</ul>
 				</li>
 			</ul>
-		</div>
+		</scroll>
 		<div>
 			
 		</div>
@@ -40,17 +47,20 @@
 <script>
 	import Scroll from '@/components/scroll/scroll'
 	import Shopcart from '@/components/shopcart/shopcart'
+	import cartcontral from '@/components/cartcontral/cartcontral'
 	export default{
 		data(){
 			return {
 				goods: [],
 				currentindex: 0,
-				classMap:[]
+				classMap:[],
+				probeType1: 3
 			}
 		},
 		components: {
 			Scroll,
-			Shopcart
+			Shopcart,
+			cartcontral
 		},
 		created(){
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
@@ -129,6 +139,8 @@
 			.food-item{
 				display: flex;
 				margin: 18px;
+				position: relative;
+				padding-bottom: 18px;
 				.icon{
 					margin-right: 10px;
 				}
@@ -149,6 +161,25 @@
 					.extra{
 						font-size: 10px;
 						color: #93999f;
+					}
+					.price{
+						font-weight: bold;
+						line-height: 24px;
+						.now{
+							color: red;
+							font-size: 14px;
+							margin-right: 8px
+						}
+						.old{
+							font-size: 10px;
+							color: #93999f;
+							text-decoration: line-through;
+						}
+					}
+					.cartcontral-wrapper{
+						position: absolute;
+						right: 0;
+						bottom: 12px;
 					}
 				}
 			}

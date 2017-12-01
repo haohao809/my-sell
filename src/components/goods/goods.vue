@@ -1,7 +1,7 @@
 <template>
 	<div class="good">
-		<scroll class="menu-wrapper" :data='goods'>
-			<ul>
+		<scroll class="menu-wrapper" :data='goods' ref='menu'>
+			<ul ref='menulist'>
 				<li v-for='(item,index) in goods' class="menu-item" :class="{'current' :currentindex === index}" @click='selectMenu(index,item)'>
 					<span class="text">
 						<span v-show='item.type>0' class="icon" :class="classMap[item.type]"></span>{{item.name}}
@@ -87,10 +87,10 @@
 				for(let i = 0; i < this.listHeight.length;i++){
 					let height1 = this.listHeight[i];
 					let height2 = this.listHeight[i+1];
-					console.log(this.scrollY);
-					console.log(height1);
+//					console.log(this.scrollY);
+//					console.log(height1);
 					if(!height2 || (this.scrollY  >= height1 && this.scrollY  < height2)){
-						console.log(i);
+						this.$refs.menu.scrollToElement(this.$refs.menulist.children[i],300,0,-100);
 						return i;
 					}
 				}
@@ -106,7 +106,7 @@
 			},
 			selectMenu(index,item){
 //				console.log(this.$refs.list);
-				this.currentindex = index;
+//				this.currentindex = index;
 				this.$refs.foodWrapper.scrollToElement(this.$refs.list.children[index],300);
 			},
 			calculateHight(){

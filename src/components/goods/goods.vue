@@ -38,9 +38,7 @@
 				</li>
 			</ul>
 		</scroll>
-		<div>
-			
-		</div>
+		<shopcart></shopcart>
 	</div>
 </template>
 

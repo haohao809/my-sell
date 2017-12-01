@@ -2,16 +2,16 @@
 	<div class="good">
 		<scroll class="menu-wrapper" :data='goods'>
 			<ul>
-				<li v-for='(item,index) in goods' class="menu-item" :class="{'current' :currentindex === index}">
+				<li v-for='(item,index) in goods' class="menu-item" :class="{'current' :currentindex === index}" @click='selectMenu(index,item)'>
 					<span class="text">
 						<span v-show='item.type>0' class="icon" :class="classMap[item.type]"></span>{{item.name}}
 					</span>
 				</li>
 			</ul>
 		</scroll>
-		<scroll class="foods-wrapper" :probeType='probeType1' :data='goods'>
-			<ul>
-				<li v-for='(item,index) in goods'>
+		<scroll class="foods-wrapper" :probeType='probeType1' :data='goods' ref='foodWrapper':listenScroll='listenScroll' @scroll="scroll">
+			<ul ref='list'>
+				<li v-for='(item,index) in goods' ref='foodlist'>
 					<h1 class='title'>{{item.name}}</h1>
 					<ul>
 						<li v-for = 'food in item.foods' class='food-item'>
@@ -50,9 +50,12 @@
 		data(){
 			return {
 				goods: [],
-				currentindex: 0,
+//				currentindex: 0,
+				listHeight:[],
 				classMap:[],
-				probeType1: 3
+				probeType1: 3,
+				scrollY: 0,
+				listenScroll: true
 			}
 		},
 		components: {
@@ -69,12 +72,56 @@
 				if(response.errno === 0){
 					console.log(response.data);
 					this.goods = response.data;
+					 this.$nextTick(() =>{
+					 	this.calculateHight();
+					 })
+					
 				}
 			})
 			.catch((error) =>{
 				console.log(error);
 			})
-	}
+		},
+		computed:{
+			currentindex(){
+				for(let i = 0; i < this.listHeight.length;i++){
+					let height1 = this.listHeight[i];
+					let height2 = this.listHeight[i+1];
+					console.log(this.scrollY);
+					console.log(height1);
+					if(!height2 || (this.scrollY  >= height1 && this.scrollY  < height2)){
+						console.log(i);
+						return i;
+					}
+				}
+			}
+		},
+		methods:{
+			scroll(pos){
+//				console.log(pos.y);
+				if(pos.y <= 0){
+					this.scrollY = Math.abs(Math.round(pos.y));
+				}				
+//				console.log(this.scrollY);
+			},
+			selectMenu(index,item){
+//				console.log(this.$refs.list);
+				this.currentindex = index;
+				this.$refs.foodWrapper.scrollToElement(this.$refs.list.children[index],300);
+			},
+			calculateHight(){
+				let foodlist = this.$refs.foodlist;
+				console.log(foodlist);
+				let height = 0;
+				this.listHeight.push(height);
+				for(let i = 0; i < foodlist.length; i++){
+					let item = foodlist[i]
+					height += item.clientHeight;
+					this.listHeight.push(height);
+				}
+				console.log(this.listHeight);
+			},
+		}
 }
 </script>
 

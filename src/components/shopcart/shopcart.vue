@@ -7,11 +7,11 @@
 						<i class="icon-shopping_cart"></i>
 					</div>
 				</div>
-				<div class="price">￥</div>
+				<div class="price">￥0</div>
 				<div class="desc">另需配送费￥4元</div>
 			</div>
 			<div class="content-right">
-				<div class="pay"></div>
+				<div class="pay">20元起送</div>
 			</div>
 		</div>
 	</div>
@@ -31,6 +31,7 @@
 		.content{
 			background: #141d27;
 			display: flex;
+			color: rgba(255,255,255,0.4);
 			.content-left{
 				flex: 1;
 				.logo-wrapper{
@@ -52,17 +53,38 @@
 						background: #2b343c;
 						border-radius:50%;
 						.icon-shopping_cart{
-						line-height: 24px;
-						font-size: 24px;
-						color: #80858a;
+							line-height: 44px;
+							font-size: 24px;
+							color: #80858a;
 					}
 					}
 
+				}
+				.price{
+					line-height: 24px;
+					font-size: 16px;
+					display: inline-block;
+					font-weight: bold;
+					margin-top: 12px;
+				}
+				.desc{
+					display: inline-block;
+					line-height: 24px;
+					font-size: 10px;
+					margin: 12px 0 0 12px
 				}
 
 			}
 			.content-right{
 				width: 105px;
+				background: #2b333b;
+				.pay{
+					font-size:12px;
+					height: 48px;
+					line-height: 48px;
+					text-align: center;
+					font-weight: bold;
+				}
 			}
 		}
 	}

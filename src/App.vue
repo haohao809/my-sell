@@ -3,13 +3,13 @@
   	<v-header></v-header>
   	<div class="tab">
   			<div class="tab-item">
-  					商品
+  				<router-link to="/goods">商品</router-link>	
   			</div>
   			<div class="tab-item">
-  					评论
+  				<router-link to="/ratings">评论</router-link>	
   			</div>
   			<div class="tab-item">
-  					商家
+  				<router-link to="/seller">商家</router-link>	
   			</div>
   	</div>
     <router-view></router-view>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 	
 #app {
 
@@ -43,6 +43,14 @@ export default {
 				flex: 1;
 				text-align: center;
 				align-items: center;
+				a{
+					font-size: 14px;
+					display: block;
+				}
+				.router-link-active{
+						color:#f01414;
+				}
+
 			}
 		}
 </style>

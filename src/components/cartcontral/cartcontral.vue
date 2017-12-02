@@ -4,19 +4,30 @@
 			<span class="inner icon-remove_circle_outline"></span>
 		</div>
 		<div class="count" v-show="food.count>0">
-
+			{{food.count}}
 		</div>
-		<div class="cart-add icon-add_circle">
+		<div class="cart-add icon-add_circle" @click="addcart">
 			
 		</div>
 	</div>
 </template>
 
 <script>
+	import Vue from 'vue';
 	export default{
 		props:{
 			food:{
 				type: Object
+			}
+		},
+		methods:{
+			addcart(){
+				console.log(this.food.count)
+				if(!this.food.count){
+					Vue.set(this.food,'count',1);
+				}else{
+					this.food.count++;
+				}
 			}
 		}
 	}

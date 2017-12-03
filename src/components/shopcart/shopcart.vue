@@ -14,7 +14,7 @@
 				<div class="desc">另需配送费￥4元</div>
 			</div>
 			<div class="content-right">
-				<div class="pay">20元起送</div>
+				<div class="pay" :class='payclass'>{{paydesc}}</div>
 			</div>
 		</div>
 	</div>
@@ -49,6 +49,23 @@
 					count += food.count;
 				})
 				return count;
+			},
+			paydesc(){
+				if(this.totalPrice === 0){
+					return '￥20元起送'
+				}
+				if(this.totalPrice<20){
+					let diff = 20 - this.totalPrice;
+					return '还差￥' + diff + '元起送'
+				}
+				return '去结算'
+			},
+			payclass(){
+				if(this.totalPrice<20){
+					return 'not-enough'
+				}else{
+					return 'enough'
+				}
 			}
 		}
 	}
@@ -138,6 +155,13 @@
 					line-height: 48px;
 					text-align: center;
 					font-weight: bold;
+				}
+				.not-enough{
+					background: #2b333b;
+				}
+				.enough{
+					color: #fff;
+					background: #00B43C;
 				}
 			}
 		}

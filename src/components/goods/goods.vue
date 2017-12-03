@@ -30,7 +30,7 @@
 									<span class="old" v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
 								</div>
 								<div class="cartcontral-wrapper">
-									<cartcontral :food='food'></cartcontral>
+									<cartcontral :food='food' @add='addfood'></cartcontral>
 								</div>
 							</div>
 						</li>
@@ -38,7 +38,7 @@
 				</li>
 			</ul>
 		</scroll>
-		<shopcart></shopcart>
+		<shopcart :selectFoods = 'selectFoods'></shopcart>
 	</div>
 </template>
 
@@ -94,6 +94,10 @@
 						return i;
 					}
 				}
+			},
+			selectFoods(){
+				console.log('456')
+				console.log(this.goods);
 			}
 		},
 		methods:{
@@ -120,6 +124,10 @@
 					this.listHeight.push(height);
 				}
 				console.log(this.listHeight);
+			},
+			//接收收组件cartcontral传过的事件
+			addfood(val){
+				console.log(val);
 			},
 		}
 }

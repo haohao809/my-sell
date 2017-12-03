@@ -6,8 +6,11 @@
 					<div class="logo">
 						<i class="icon-shopping_cart"></i>
 					</div>
+					<div class="num" v-show="totalCount>0">
+						{{totalCount}}
+					</div>
 				</div>
-				<div class="price">￥0</div>
+				<div class="price">￥{{totalPrice}}</div>
 				<div class="desc">另需配送费￥4元</div>
 			</div>
 			<div class="content-right">
@@ -18,6 +21,37 @@
 </template>
 
 <script>
+	export default{
+		props:{
+			selectFoods:{
+				type: Array,
+				default(){
+					return [
+						{
+							price: 10,
+							count: 1
+						}					
+					];
+				}
+			}
+		},
+		computed:{
+			totalPrice(){
+				let total = 0;
+				this.selectFoods.forEach((food) =>{
+					total += food.price*food.count;
+				})
+				return total
+			},
+			totalCount(){
+				let count = 0;
+				this.selectFoods.forEach((food) =>{
+					count += food.count;
+				})
+				return count;
+			}
+		}
+	}
 </script>
 
 <style lang='scss' scoped>

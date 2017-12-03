@@ -27,10 +27,11 @@
 				console.log(this.food.count)
 				if(!this.food.count){
 					Vue.set(this.food,'count',1);
+					console.log(this.food);
 				}else{
 					this.food.count++;
 				}
-				this.$emit('add',enent.target)
+				this.$emit('add',event.target)
 			}
 		}
 	}

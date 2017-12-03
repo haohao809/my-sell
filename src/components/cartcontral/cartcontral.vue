@@ -1,7 +1,7 @@
 <template>
 	<div class="cartcontral">
 		<transition name='move'>
-			<div class="cart-decrease" v-show="food.count>0">
+			<div class="cart-decrease" v-show="food.count>0" @click="decrease">
 				<span class="inner icon-remove_circle_outline"></span>
 			</div>
 		</transition>
@@ -32,6 +32,13 @@
 					this.food.count++;
 				}
 				this.$emit('add',event.target)
+			},
+			decrease(event){
+				if(this.food.count){
+					this.food.count--;
+				}else{
+					this.food.count = 0;
+				}
 			}
 		}
 	}

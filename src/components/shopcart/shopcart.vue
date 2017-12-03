@@ -3,14 +3,14 @@
 		<div class="content">
 			<div class="content-left">
 				<div class="logo-wrapper">
-					<div class="logo">
+					<div class="logo" :class="{'heighlight': totalCount>0}">
 						<i class="icon-shopping_cart"></i>
 					</div>
 					<div class="num" v-show="totalCount>0">
 						{{totalCount}}
 					</div>
 				</div>
-				<div class="price">￥{{totalPrice}}</div>
+				<div class="price" :class="{'heighlight': totalCount>0}">￥{{totalPrice}}</div>
 				<div class="desc">另需配送费￥4元</div>
 			</div>
 			<div class="content-right">
@@ -90,7 +90,24 @@
 							line-height: 44px;
 							font-size: 24px;
 							color: #80858a;
+						}
 					}
+					.num{
+						position:absolute;
+						color: #fff;
+						background: #F01414;
+						width: 24px;
+						height: 16px;
+						border-radius: 10px;
+						text-align: center;
+						font-size: 9px;
+						top: 0px;
+						left: 30px;
+						line-height: 16px;
+					}
+					.highlight{
+						color:#fff;
+						background: #00A0DC;
 					}
 
 				}
@@ -100,6 +117,9 @@
 					display: inline-block;
 					font-weight: bold;
 					margin-top: 12px;
+				}
+				.heighlight{
+					color: #fff;
 				}
 				.desc{
 					display: inline-block;

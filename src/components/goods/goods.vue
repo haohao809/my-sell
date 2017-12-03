@@ -96,8 +96,15 @@
 				}
 			},
 			selectFoods(){
-				console.log('456')
-				console.log(this.goods);
+				let foods =[];
+				this.goods.forEach((good) =>{
+					good.foods.forEach((food)=>{
+						if(food.count){
+							foods.push(food)
+						}
+					})
+				})
+				return foods;
 			}
 		},
 		methods:{

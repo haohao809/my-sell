@@ -17,6 +17,11 @@
 				<div class="pay" :class='payclass'>{{paydesc}}</div>
 			</div>
 		</div>
+		<div class="ball-container">
+			<div v-for='ball in balls'>
+				
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -33,6 +38,27 @@
 						}					
 					];
 				}
+			}
+		},
+		data(){
+			return {
+				    balls: [
+			          {
+			            show: false
+			          },
+			          {
+			            show: false
+			          },
+			          {
+			            show: false
+			          },
+			          {
+			            show: false
+			          },
+			          {
+			            show: false
+			          }
+			        ],
 			}
 		},
 		computed:{
@@ -66,6 +92,11 @@
 				}else{
 					return 'enough'
 				}
+			}
+		},
+		methods:{
+			drop(el){
+				
 			}
 		}
 	}

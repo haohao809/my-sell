@@ -38,7 +38,7 @@
 				</li>
 			</ul>
 		</scroll>
-		<shopcart :selectFoods = 'selectFoods'></shopcart>
+		<shopcart :selectFoods = 'selectFoods' ref='shopcart'></shopcart>
 	</div>
 </template>
 
@@ -135,6 +135,9 @@
 			//接收收组件cartcontral传过的事件
 			addfood(val){
 				console.log(val);
+				this.$nextTick(() => {
+		          this.$refs.shopcart.drop(val);
+		        });
 			},
 		}
 }

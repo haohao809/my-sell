@@ -107,6 +107,7 @@
 						ball.show=true;
 						ball.el = el;
 						this.dropBalls.push(ball);
+						return;
 					}
 				}
 			},
@@ -254,6 +255,7 @@
           			height: 16px;
           			border-radius: 50%;
           			background: rgb(0, 160, 220);
+          			transition: all 0.4s linear;
         		}
 			}
 		}

@@ -26,6 +26,20 @@
 				</transition>
 			</div>
 		</div>
+		<div class="fold">		
+			<div class="shopcart-list">
+				<div class="list-header">
+					<h1>购物车</h1>
+					<span class="empty">清空</span>
+				</div>
+				<div class="list-content">
+					<ul>
+						<li v-for='item in selectFoods' class="food">{{item.name}}</li>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -259,5 +273,29 @@
         		}
 			}
 		}
+		.shopcart-list{
+			position: absolute;
+			top:0px;
+			left: 0px;
+			width: 100%;
+			z-index: -1;
+			.list-header{
+				height: 40px;
+				line-height: 40px;
+			}
+			.list-content{
+				max-height: 217px;
+				.food{
+					position: relative;
+					bottom: 48px;
+					width: 100%;
+					left: 0;
+					top: 0;
+					background: #fff;
+				}
+			}
+		 }
+
+
 	}
 </style>

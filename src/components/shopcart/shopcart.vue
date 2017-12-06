@@ -1,4 +1,5 @@
 <template>
+<div>	
 	<div class="shopcart">
 		<div class="content">
 			<div class="content-left">
@@ -26,25 +27,35 @@
 				</transition>
 			</div>
 		</div>
-		<div class="fold">		
 			<div class="shopcart-list">
 				<div class="list-header">
-					<h1>购物车</h1>
+					<h1 class='title'>购物车</h1>
 					<span class="empty">清空</span>
 				</div>
 				<div class="list-content">
 					<ul>
-						<li v-for='item in selectFoods' class="food">{{item.name}}</li>
+						<li v-for='item in selectFoods' class="food">
+							<span class="name">{{item.name}}</span>
+							<span class="price">￥{{item.price*item.count}}</span>
+							<div class="cartcontrol-wrapper">
+								<cartcontral :food='item'></cartcontral>
+							</div>
+						</li>
 					</ul>
 				</div>
 				
 			</div>
-		</div>
 	</div>
+	<div class="mask"></div>
+</div>
 </template>
 
 <script>
+	import cartcontral from '@/components/cartcontral/cartcontral'
 	export default{
+		components:{
+			cartcontral
+		},
 		props:{
 			selectFoods:{
 				type: Array,
@@ -275,27 +286,65 @@
 		}
 		.shopcart-list{
 			position: absolute;
-			top:0px;
-			left: 0px;
+			top: 0;
+			left: 0;
 			width: 100%;
 			z-index: -1;
+			transform: translate3d(0,-100%,0);
 			.list-header{
 				height: 40px;
 				line-height: 40px;
+				background: #f3f5f7;
+				padding: 0 18px;
+				.title{
+					float: left;
+				}
+				.empty{
+					float: right;
+					color: #00a0dc;
+					font-size: 12px;
+				}
 			}
 			.list-content{
 				max-height: 217px;
+				overflow: hidden;
+				background: #FFF;
+				padding: 0 18px;
 				.food{
 					position: relative;
-					bottom: 48px;
-					width: 100%;
-					left: 0;
-					top: 0;
 					background: #fff;
+					padding: 12px 0;
+					.name{
+						line-height: 24px;
+						font-size: 14px;
+   						 color: #07111b
+					}
+					.price{
+						font-size: 14px;
+						line-height: 24px;
+						color:#f01414;
+						font-weight: bold;
+						position: absolute;
+						right: 90px;
+					}
+					.cartcontrol-wrapper{
+						display: inline-block;
+						position: absolute;
+						right: 0px;
+						top: 7px;
+					}
 				}
 			}
 		 }
-
-
 	}
+	.mask{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 40;
+		background: rgba(7,17,27,0.6);
+	}
+
 </style>

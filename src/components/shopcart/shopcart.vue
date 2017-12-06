@@ -31,7 +31,7 @@
 			<div class="shopcart-list" v-show='listShow'>
 				<div class="list-header">
 					<h1 class='title'>购物车</h1>
-					<span class="empty">清空</span>
+					<span class="empty" @click="empty">清空</span>
 				</div>
 				<div class="list-content">
 					<ul>
@@ -47,7 +47,7 @@
 			</div>
 			</transition>
 	</div>
-	<div class="mask" style="display: none;"></div>
+	<div class="mask" v-show='listShow'></div>
 </div>
 </template>
 
@@ -90,6 +90,7 @@
 			          }
 			        ],
 			        dropBalls: [],
+			        fold: true
 			}
 		},
 		computed:{
@@ -105,6 +106,13 @@
 				this.selectFoods.forEach((food) =>{
 					count += food.count;
 				})
+//				    get() {
+//					        return this.count;
+//					    },
+//					set(val) {
+//					        this.count = val;
+//					    }
+				
 				return count;
 			},
 			paydesc(){
@@ -126,8 +134,11 @@
 			},
 			listShow(){
 				if(!this.totalCount){
+					this.fold = true;
 					return false;
 				}
+				let show = !this.fold;
+				return show;
 			}
 		},
 		methods:{
@@ -183,6 +194,18 @@
 				if(!this.totalCount){
 					return;
 				}
+				this.fold = !this.fold;
+			},
+			empty(){
+//				this.selectFoods.forEach((food) => {
+//			          food.count = 0;
+//			    });
+				let len = this.selectFoods.length;
+			    this.selectFoods.splice(0,len);
+			    console.log(this.selectFoods);
+			    console.log(this.totalCount);
+			    this.totalCount = 0;
+
 			}
 		}
 	}

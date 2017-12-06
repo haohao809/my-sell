@@ -1,7 +1,7 @@
 <template>
 <div>	
-	<div class="shopcart">
-		<div class="content">
+	<div class="shopcart" >
+		<div class="content" @click='toggleList'>
 			<div class="content-left">
 				<div class="logo-wrapper">
 					<div class="logo" :class="{'heighlight': totalCount>0}">
@@ -27,7 +27,8 @@
 				</transition>
 			</div>
 		</div>
-			<div class="shopcart-list">
+			<transition name='food'>
+			<div class="shopcart-list" v-show='listShow'>
 				<div class="list-header">
 					<h1 class='title'>购物车</h1>
 					<span class="empty">清空</span>
@@ -38,15 +39,15 @@
 							<span class="name">{{item.name}}</span>
 							<span class="price">￥{{item.price*item.count}}</span>
 							<div class="cartcontrol-wrapper">
-								<cartcontral :food='item'></cartcontral>
+								<cartcontral @add="addFood" :food='item'></cartcontral>
 							</div>
 						</li>
 					</ul>
-				</div>
-				
+				</div>				
 			</div>
+			</transition>
 	</div>
-	<div class="mask"></div>
+	<div class="mask" style="display: none;"></div>
 </div>
 </template>
 
@@ -122,6 +123,11 @@
 				}else{
 					return 'enough'
 				}
+			},
+			listShow(){
+				if(!this.totalCount){
+					return false;
+				}
 			}
 		},
 		methods:{
@@ -135,6 +141,9 @@
 						return;
 					}
 				}
+			},
+			addFood(target){
+				this.drop(target);
 			},
 			beforeDrop(el){
 				let count = this.balls.length;
@@ -168,6 +177,11 @@
 				if(ball){
 					ball.show = false;
 					el.style.display = 'none';
+				}
+			},
+			toggleList(){
+				if(!this.totalCount){
+					return;
 				}
 			}
 		}

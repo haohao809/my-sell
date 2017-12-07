@@ -14,7 +14,7 @@
 				<li v-for='(item,index) in goods' ref='foodlist'>
 					<h1 class='title'>{{item.name}}</h1>
 					<ul>
-						<li v-for = 'food in item.foods' class='food-item'>
+						<li v-for = 'food in item.foods' class='food-item' @click="selectFood(food)">
 							<div class="icon">
 								<img width="57" height="57" :src='food.icon' />
 							</div>
@@ -139,6 +139,10 @@
 		          this.$refs.shopcart.drop(val);
 		        });
 			},
+			//查看food详情
+			selectFood(food){
+				
+			}
 		}
 }
 </script>

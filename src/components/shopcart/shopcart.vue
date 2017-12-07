@@ -27,7 +27,7 @@
 				</transition>
 			</div>
 		</div>
-			<transition name='food'>
+			<transition name='fold'>
 			<div class="shopcart-list" v-show='listShow'>
 				<div class="list-header">
 					<h1 class='title'>购物车</h1>
@@ -47,7 +47,9 @@
 			</div>
 			</transition>
 	</div>
-	<div class="mask" v-show='maskShow'></div>
+	<transition name='fade'>
+		<div class="mask" v-show='maskShow'></div>
+	</transition>
 	<div class="tip-wrapper">
 		<tip :price='totalPrice' ref='tip' @hide='hideMask'></tip>
 	</div>
@@ -330,6 +332,7 @@
         		}
 			}
 		}
+
 		.shopcart-list{
 			position: absolute;
 			top: 0;
@@ -337,6 +340,12 @@
 			width: 100%;
 			z-index: -1;
 			transform: translate3d(0,-100%,0);
+			&.fold-enter-active, &.fold-leave-active{
+				transition: all  0.5s;
+			}
+			&.fold-enter, &.fold-leave-to{
+				transform: translate3d(0,0,0);
+			}
 			.list-header{
 				height: 40px;
 				line-height: 40px;
@@ -390,7 +399,15 @@
 		right: 0;
 		bottom: 0;
 		z-index: 40;
+		opacity: 1;
 		background: rgba(7,17,27,0.6);
+		&.fade-enter-active, &.fade-leave-active{
+			transition: all  0.5s;
+		}
+		&.fade-enter, &.fade-leave-to{
+			opacity: 0;
+			background: rgba(7, 17, 27, 0)
+		}
 	}
 	.tip-wrapper{
 		position: absolute;

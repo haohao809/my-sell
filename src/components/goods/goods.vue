@@ -41,7 +41,7 @@
 		</scroll>
 		<shopcart :selectFoods = 'selectFoods' ref='shopcart'></shopcart>
 	</div>
-	<food :food='selectedFood' ref='food'></food>
+	<food :food='selectedFood' ref='food' @add='addfood'></food>
 	</div>
 </template>
 

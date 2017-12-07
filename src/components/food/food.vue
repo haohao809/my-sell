@@ -15,10 +15,13 @@
 				</div>
 				<div class="price">
 				 <span class="now">￥{{food.price}}</span>
-				 <span class="old">￥{{food.oldPrice}}</span>
+				 <span class="old" v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
 				</div>
 				<div class="cartcontrol-wrapper">
-					
+					<cartcontral v-show='!cartShow' :food='food' @add='addfood' ref='cart'></cartcontral>
+					<div class="buy" @click.stop.prevent='addCartFirst' v-show='cartShow'>
+						加入购物车
+					</div>
 				</div>
 			</div>
 			<div class="split">
@@ -38,7 +41,12 @@
 </template>
 
 <script>
+	import cartcontral from '@/components/cartcontral/cartcontral'
+	import Vue from 'vue'
 	export default{
+		components:{
+			cartcontral
+		},
 		props:{
 			food:{
 				type: Object
@@ -46,7 +54,8 @@
 		},
 		data(){
 			return {
-				showFlag: false
+				showFlag: false,
+				cartShow: true
 			}
 		},
 		watch: {
@@ -61,6 +70,18 @@
 			},
 			back(){
 				this.showFlag = false;
+			},
+			addCartFirst(event){
+//				if (!event._constructed) {
+//		          return;
+//		        }
+				this.cartShow = false;
+				 console.log(event.target);
+				 this.$emit('add', event.target);
+				 Vue.set(this.food,'count',1)
+			},
+			addfood(val){
+				this.$emit('add',val);
 			}
 		}
 	}
@@ -127,6 +148,20 @@
 					color: #93999f;
 					font-size: 10px;
 					text-decoration: line-through;
+				}
+			}
+			.cartcontrol-wrapper{
+				position: absolute;
+				right: 12px;
+				bottom: 12px;
+				.buy{
+					font-size: 10px;
+					background: #00A0DC;
+					color: #fff;
+					line-height: 24px;
+					height: 24px;
+					padding: 0 12px;
+					border-radius: 10px;
 				}
 			}
 		}

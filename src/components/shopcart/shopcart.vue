@@ -14,7 +14,7 @@
 				<div class="price" :class="{'heighlight': totalCount>0}">￥{{totalPrice}}</div>
 				<div class="desc">另需配送费￥4元</div>
 			</div>
-			<div class="content-right">
+			<div class="content-right" @click.stop.prevent="pay">
 				<div class="pay" :class='payclass'>{{paydesc}}</div>
 			</div>
 		</div>
@@ -47,15 +47,20 @@
 			</div>
 			</transition>
 	</div>
-	<div class="mask" v-show='listShow'></div>
+	<div class="mask" v-show='maskShow'></div>
+	<div class="tip-wrapper">
+		<tip :price='totalPrice' ref='tip' @hide='hideMask'></tip>
+	</div>
 </div>
 </template>
 
 <script>
 	import cartcontral from '@/components/cartcontral/cartcontral'
+	import tip from '@/components/tip/tip'
 	export default{
 		components:{
-			cartcontral
+			cartcontral,
+			tip
 		},
 		props:{
 			selectFoods:{
@@ -90,7 +95,8 @@
 			          }
 			        ],
 			        dropBalls: [],
-			        fold: true
+			        fold: true,
+			        maskShow: false
 			}
 		},
 		computed:{
@@ -101,17 +107,12 @@
 				})
 				return total
 			},
-			totalCount(){
+			totalCount() {
 				let count = 0;
+				console.log(this.selectFoods);
 				this.selectFoods.forEach((food) =>{
 					count += food.count;
 				})
-//				    get() {
-//					        return this.count;
-//					    },
-//					set(val) {
-//					        this.count = val;
-//					    }
 				
 				return count;
 			},
@@ -135,6 +136,7 @@
 			listShow(){
 				if(!this.totalCount){
 					this.fold = true;
+					this.maskShow = false;
 					return false;
 				}
 				let show = !this.fold;
@@ -194,18 +196,25 @@
 				if(!this.totalCount){
 					return;
 				}
+				this.maskShow = this.fold;
 				this.fold = !this.fold;
+				
 			},
 			empty(){
-//				this.selectFoods.forEach((food) => {
-//			          food.count = 0;
-//			    });
-				let len = this.selectFoods.length;
-			    this.selectFoods.splice(0,len);
-			    console.log(this.selectFoods);
-			    console.log(this.totalCount);
-			    this.totalCount = 0;
-
+//				console.log(this.selectFoods);
+				this.selectFoods.forEach((food) => {
+			          food.count = 0;
+			  });
+			},
+			pay(){
+				if(this.totalPrice>20){
+//					alert('支付'+ this.totalPrice);
+					this.$refs.tip.tipShow();
+					this.maskShow = true;
+				}
+			},
+			hideMask(){
+				this.maskShow = false;
 			}
 		}
 	}
@@ -383,5 +392,11 @@
 		z-index: 40;
 		background: rgba(7,17,27,0.6);
 	}
-
+	.tip-wrapper{
+		position: absolute;
+		top: 50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+		z-index: 50;
+	}
 </style>

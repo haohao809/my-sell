@@ -39,7 +39,7 @@
 	.tip{
 		width:180px;
 		background: #FFF;
-		border-radius: 10px;
+		border-radius: 5px;
 		h1{
 			text-align: center;
 			height: 30px;

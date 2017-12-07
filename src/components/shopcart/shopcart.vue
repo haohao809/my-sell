@@ -209,8 +209,7 @@
 			  });
 			},
 			pay(){
-				if(this.totalPrice>20){
-//					alert('支付'+ this.totalPrice);
+				if(this.totalPrice >= 20){
 					this.$refs.tip.tipShow();
 					this.maskShow = true;
 				}

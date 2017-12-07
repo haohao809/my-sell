@@ -1,4 +1,5 @@
 <template>
+	<div>	
 	<div class="good">
 		<scroll class="menu-wrapper" :data='goods' ref='menu'>
 			<ul ref='menulist'>
@@ -40,12 +41,15 @@
 		</scroll>
 		<shopcart :selectFoods = 'selectFoods' ref='shopcart'></shopcart>
 	</div>
+	<food :food='selectedFood' ref='food'></food>
+	</div>
 </template>
 
 <script>
 	import Scroll from '@/components/scroll/scroll'
 	import Shopcart from '@/components/shopcart/shopcart'
 	import cartcontral from '@/components/cartcontral/cartcontral'
+	import Food from '@/components/food/food'
 	export default{
 		data(){
 			return {
@@ -55,13 +59,15 @@
 				classMap:[],
 				probeType1: 3,
 				scrollY: 0,
-				listenScroll: true
+				listenScroll: true,
+				selectedFood: {}
 			}
 		},
 		components: {
 			Scroll,
 			Shopcart,
-			cartcontral
+			cartcontral,
+			Food
 		},
 		created(){
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
@@ -141,7 +147,8 @@
 			},
 			//查看food详情
 			selectFood(food){
-				
+				this.selectedFood = food;
+				this.$refs.food.show();
 			}
 		}
 }

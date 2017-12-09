@@ -1,6 +1,6 @@
 <template>
 	<transition name='move'>
-	<div class="food" v-show='showFlag'>
+	<Scroll class="food" v-show='showFlag'>
 		<div class="food-content">
 			<div class="image-header">
 				<img :src="food.image"/>
@@ -29,25 +29,28 @@
 				
 			</div>
 			<div class="desc">
-				
+				<h1>商品信息</h1>
+				<span class='food-info'>{{food.info}}</span>
 			</div>
 			<div class="split">
 				
 			</div>
 			<div class="rating">
-				
+				<h1>商品评价</h1>
 			</div>
 		</div>
-	</div>
+	</Scroll>
 	</transition>
 </template>
 
 <script>
 	import cartcontral from '@/components/cartcontral/cartcontral'
 	import Vue from 'vue'
+	import Scroll from '@/components/scroll/scroll'
 	export default{
 		components:{
-			cartcontral
+			cartcontral,
+			Scroll
 		},
 		props:{
 			food:{
@@ -79,9 +82,10 @@
 //		        }
 				this.cartShow = false;
 				 console.log(event.target);
+				 //先emit,后执行count=1
 				 this.$emit('add', event.target);
 				 Vue.set(this.food,'count',1)
-//				 this.$refs.cart.addcart(event); //不能执行这个，target位置会被改变
+//				 this.$refs.cart.addcart(event); //不能执行这个，这个顺序先将target不显示，再执行emit 消失的target
 			},
 			addfood(val){
 				this.$emit('add',val);
@@ -185,6 +189,18 @@
 			border-bottom: 1px solid rgba(7,17,27,0.1);
 			border-top: 1px solid rgba(7,17,27,0.1);
 			background: #f3f5f7;
+		}
+		.desc{
+			padding: 15px;
+			h1{
+				font-size: 14px;
+				padding-bottom: 5px;
+			}
+			.food-info{
+				font-size: 10px;
+				height: 24px;
+				line-height: 24px;
+			}
 		}
 	}
 </style>

@@ -1,4 +1,5 @@
 <template>
+	<transition name='move'>
 	<div class="food" v-show='showFlag'>
 		<div class="food-content">
 			<div class="image-header">
@@ -18,10 +19,10 @@
 				 <span class="old" v-show='food.oldPrice'>￥{{food.oldPrice}}</span>
 				</div>
 				<div class="cartcontrol-wrapper">
-					<cartcontral v-show='!cartShow' :food='food' @add='addfood' ref='cart'></cartcontral>
-					<div class="buy" @click.stop.prevent='addCartFirst' v-show='cartShow'>
+					<cartcontral  :food='food' @add='addfood' ref='cart'></cartcontral>
+				</div>
+				<div class="buy" @click.stop.prevent='addCartFirst' v-show="!food.count || food.count===0">
 						加入购物车
-					</div>
 				</div>
 			</div>
 			<div class="split">
@@ -38,6 +39,7 @@
 			</div>
 		</div>
 	</div>
+	</transition>
 </template>
 
 <script>
@@ -79,6 +81,7 @@
 				 console.log(event.target);
 				 this.$emit('add', event.target);
 				 Vue.set(this.food,'count',1)
+//				 this.$refs.cart.addcart(event); //不能执行这个，target位置会被改变
 			},
 			addfood(val){
 				this.$emit('add',val);
@@ -93,9 +96,16 @@
 		top: 0;
 		bottom: 48px;
 		left: 0;
-		right: 0;
 		z-index: 30;
 		background: #fff;
+		width: 100%;
+		transform: translate3d(0,0,0);
+		&.move-enter-active,&.move-leave-active{
+			transition: all 0.2s linear;
+		}
+		&.move-enter,&.move-leave-to{
+			transform: translate3d(100%,0,0);
+		}
 		.image-header{
 			position: relative;
 			width: 100%;
@@ -154,15 +164,19 @@
 				position: absolute;
 				right: 12px;
 				bottom: 12px;
-				.buy{
-					font-size: 10px;
-					background: #00A0DC;
-					color: #fff;
-					line-height: 24px;
-					height: 24px;
-					padding: 0 12px;
-					border-radius: 10px;
-				}
+			}
+			.buy{
+				font-size: 10px;
+				background: #00A0DC;
+				color: #fff;
+				line-height: 24px;
+				height: 24px;
+				padding: 0 12px;
+				border-radius: 10px;
+				position:absolute;
+				right: 18px;
+				bottom: 18px;
+				z-index: 10;
 			}
 		}
 		.split{

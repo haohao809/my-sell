@@ -32,6 +32,7 @@
 					this.food.count++;
 				}
 				this.$emit('add',event.target)
+				
 			},
 			decrease(event){
 				if(this.food.count){

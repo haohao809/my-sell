@@ -141,6 +141,9 @@
 			//接收收组件cartcontral传过的事件
 			addfood(val){
 				console.log(val);
+				this._drop(val);
+			},
+			_drop(val){
 				this.$nextTick(() => {
 		          this.$refs.shopcart.drop(val);
 		        });

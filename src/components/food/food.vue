@@ -37,6 +37,21 @@
 			</div>
 			<div class="rating">
 				<h1>商品评价</h1>
+				<ratingtab></ratingtab>
+				<div class="ratng-wrapper">
+					<ul v-show="food.ratings && food.ratings.length">
+						<li v-for='rate in food.ratings' class='rate-item'>
+							<div class="rate-time">
+								{{setTime(rate.rateTime)}}
+							</div>
+							<div class="user">
+								<span>{{rate.username}}</span>
+								<img :src="rate.avatar" width="12" height="12"/>
+							</div>
+							<p class="text">{{rate.text}}</p>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</Scroll>
@@ -47,10 +62,12 @@
 	import cartcontral from '@/components/cartcontral/cartcontral'
 	import Vue from 'vue'
 	import Scroll from '@/components/scroll/scroll'
+	import ratingtab from '@/components/ratingtab/ratingtab'
 	export default{
 		components:{
 			cartcontral,
-			Scroll
+			Scroll,
+			ratingtab
 		},
 		props:{
 			food:{
@@ -89,6 +106,11 @@
 			},
 			addfood(val){
 				this.$emit('add',val);
+			},
+			setTime(time){
+				let timeS = new Date(time);
+				timeS = timeS.toLocaleString()
+				return timeS;
 			}
 		}
 	}
@@ -200,6 +222,35 @@
 				font-size: 10px;
 				height: 24px;
 				line-height: 24px;
+			}
+		}
+		.rating{
+			padding: 15px;
+			h1{
+				font-size: 14px;
+				padding-bottom: 5px;
+			}
+			.ratng-wrapper{
+				padding: 0 18px;
+				.rate-item{
+					padding: 16px 0;
+					position: relative;
+					border-bottom: 1px solid rgba(77, 85, 93, 0.2);
+					.rate-time{
+						font-size: 10px;
+						color: #93999f;
+					}
+					.user{
+						font-size:10px;
+						position: absolute;
+						right: 5px;
+						bottom: 16px;
+						color: #93999f;
+						img{
+							border-radius: 50%;
+						}
+					}
+				}
 			}
 		}
 	}

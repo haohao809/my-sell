@@ -14,12 +14,12 @@
 				<div class="over-right">
 					<div class="score-wrapper">
 						<span class='text'>服务态度</span>
-						<star></star>
+						<star :score='seller.serviceScore'></star>
 						<span class="score">{{seller.serviceScore}}</span>
 					</div>
 					<div class="score-wrapper">
 						<span class='text'>商品评分</span>
-						<star></star>
+						<star :score='seller.foodScore'></star>
 						<span class="score">{{seller.foodScore}}</span>
 					</div>
 					<div class="delivery">
@@ -97,6 +97,7 @@
 			}
 			.delivery-time{
 				font-size: 12px;
+				color: #93999f
 			}
 		}
 	}

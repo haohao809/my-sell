@@ -12,7 +12,7 @@
   				<router-link to="/seller">商家</router-link>	
   			</div>
   	</div>
-    <router-view></router-view>
+    <router-view :seller='seller'></router-view>
   </div>
 </template>
 
@@ -23,6 +23,21 @@ export default {
   name: 'app',
   components: {
   	vHeader
+  },
+  data(){
+  	 return {
+  	 		seller: {},
+  	 }
+  },
+  created(){
+  	const url = '/api/seller';
+  	this.$http.get(url).then((response) =>{
+  			response = response.data;
+//			console.log(response);
+				if(response.errno === 0){
+					 this.seller = response.data;
+				}
+  	})
   }
   
 }

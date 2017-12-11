@@ -1,6 +1,6 @@
 <template>
 	<transition name='move'>
-	<Scroll class="food" v-show='showFlag'>
+	<Scroll class="food" v-show='showFlag' ref='scroll'>
 		<div class="food-content">
 			<div class="image-header">
 				<img :src="food.image"/>
@@ -37,10 +37,10 @@
 			</div>
 			<div class="rating">
 				<h1>商品评价</h1>
-				<ratingtab></ratingtab>
+				<ratingtab @showContent='showContent' @selectTab='selectTab'></ratingtab>
 				<div class="ratng-wrapper">
 					<ul v-show="food.ratings && food.ratings.length">
-						<li v-for='rate in food.ratings' class='rate-item'>
+						<li v-show='needShow(rate)' v-for='rate in food.ratings' class='rate-item'>
 							<div class="rate-time">
 								{{setTime(rate.rateTime)}}
 							</div>
@@ -48,7 +48,10 @@
 								<span>{{rate.username}}</span>
 								<img :src="rate.avatar" width="12" height="12"/>
 							</div>
-							<p class="text">{{rate.text}}</p>
+							<p class="text">
+								<span :class="{'icon-thumb_up':rate.rateType===0,'icon-thumb_down':rate.rateType===1}"></span>	
+							{{rate.text}}
+							</p>
 						</li>
 					</ul>
 				</div>
@@ -77,7 +80,9 @@
 		data(){
 			return {
 				showFlag: false,
-				cartShow: true
+				cartShow: true,
+				onlyContent: true,
+				tab: 2
 			}
 		},
 		watch: {
@@ -111,6 +116,30 @@
 				let timeS = new Date(time);
 				timeS = timeS.toLocaleString()
 				return timeS;
+			},
+			needShow(rate){
+//				console.log(this.onlyContent);
+//				console.log(this.tab);
+				if(this.onlyContent && !rate.text){
+					return false;
+				}
+				if(this.tab === 2){
+					return true;
+				}else {
+					return rate.rateType === this.tab;
+				}
+			},
+			showContent(){
+				this.onlyContent = ! this.onlyContent;
+				this.$nextTick(() => {
+		          this.$refs.scroll.refresh();
+		        });
+			},
+			selectTab(type){
+				this.tab = type;
+				this.$nextTick(() => {
+		          this.$refs.scroll.refresh();
+		        });
 			}
 		}
 	}
@@ -244,10 +273,26 @@
 						font-size:10px;
 						position: absolute;
 						right: 5px;
-						bottom: 16px;
+						top: 16px;
 						color: #93999f;
 						img{
 							border-radius: 50%;
+						}
+					}
+					.text{
+						margin-top: 6px;
+						line-height: 16px;
+						font-size: 12px;
+						.icon-thumb_up, .icon-thumb_down{
+							
+							margin-right: 4px;
+							line-height: 16px;
+						}
+						.icon-thumb_up{
+							color: rgb(0, 160, 220)
+						}
+						.icon-thumb_down{
+							color: rgb(147, 153, 159)
 						}
 					}
 				}

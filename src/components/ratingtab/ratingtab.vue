@@ -1,7 +1,7 @@
 <template>
 <div class="rateType">
-		<span class="block positive" :class='{"active": select===3}' @click='all'>全部3</span>
-		<span class="block positive" :class='{"active": select===2}' @click="recommend">推荐2</span>
+		<span class="block positive" :class='{"active": select===2}' @click='all'>全部3</span>
+		<span class="block positive" :class='{"active": select===0}' @click="recommend">推荐2</span>
 		<span class='block negative' :class='{"deactive": select===1}' @click="whine">吐槽1</span>
 		<p class="desc" :class='{on: toggle}' @click="toggleContent">
 			<i class="icon-check_circle"></i>
@@ -14,22 +14,26 @@
 	export default{
 		data(){
 			return {
-				select: 3,
+				select: 2,
 				toggle: true
 			}
 		},
 		methods:{
 			all(){
-				this.select = 3;
+				this.select = 2;
+				this.$emit('selectTab', this.select);
 			},
 			recommend(){
-				this.select = 2;
+				this.select = 0;
+				this.$emit('selectTab', this.select);
 			},
 			whine(){
 				this.select = 1;
+				this.$emit('selectTab', this.select);
 			},
 			toggleContent(){
 				this.toggle = !this.toggle;
+				this.$emit('showContent');
 			}
 		},
 	}

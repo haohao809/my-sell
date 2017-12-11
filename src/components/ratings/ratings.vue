@@ -14,12 +14,17 @@
 				<div class="over-right">
 					<div class="score-wrapper">
 						<span class='text'>服务态度</span>
+						<star></star>
+						<span class="score">{{seller.serviceScore}}</span>
 					</div>
 					<div class="score-wrapper">
 						<span class='text'>商品评分</span>
+						<star></star>
+						<span class="score">{{seller.foodScore}}</span>
 					</div>
 					<div class="delivery">
 						<span class='text'>送达时间</span>
+						<span class="delivery-time">{{seller.deliveryTime}}分钟</span>
 					</div>
 				</div>
 			</div>
@@ -36,9 +41,11 @@
 
 <script>
 	import ratingTab from '@/components/ratingtab/ratingtab'
+	import star from '@/components/star/star'
 	export default{
 		components:{
-			ratingTab
+			ratingTab,
+			star
 		},
 		props:{
 			seller: Object
@@ -76,13 +83,20 @@
 		}
 		.over-right{
 			padding-left: 5px;
+			flex: 1;
 			.score-wrapper,.delivery{
-				line-height: 18px;
 				margin-bottom: 8px;
+				.score{
+					font-size: 12px;
+					color: #f90;
+				}
 				
 			}
 			.text{
 				font-size: 10px;
+			}
+			.delivery-time{
+				font-size: 12px;
 			}
 		}
 	}

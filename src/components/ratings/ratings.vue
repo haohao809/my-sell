@@ -1,5 +1,5 @@
 <template>
-	<scroll class="ratings" :data='ratings'>
+	<scroll class="ratings" :data='ratings' ref="ratings">
 		<div class="ratings-content">
 			<div class="overview">
 				<div class="over-left">
@@ -32,13 +32,11 @@
 				
 			</div>
 			<div class="tab-wrapper">
-				<ratingTab :count='count'></ratingTab>
+				<ratingTab :count='count' @selectTab='selectTab' @showContent='showContent'></ratingTab>
 			</div>
-			
-		</div>
-		<div class="rating-wrapper">
+			<div class="rating-wrapper">
 			<ul>
-				<li v-for='(rate,index) in ratings' class="rate-item">
+				<li v-for='(rate,index) in ratings' class="rate-item" v-show='needShow(rate)'>
 					<div class="avatar">
 						<img :src="rate.avatar" width="28" height="28" />
 					</div>
@@ -60,6 +58,8 @@
 				</li>
 			</ul>
 		</div>
+		</div>
+
 	</scroll>
 </template>
 
@@ -84,6 +84,8 @@
 					whine: 0
 				},
 				ratings: [],
+				rateType: 2,
+				onlyContent: true
 			}
 		},
 		filters:{
@@ -98,7 +100,7 @@
 			let  url = '/api/ratings';
 			this.$http.get(url).then((response) =>{
 				response = response.data;
-				console.log(response);
+//				console.log(response);
 				if(response.errno === 0){
 					let ratingsArr = response.data;
 					this.ratings = ratingsArr;
@@ -116,12 +118,47 @@
 					this.count.whine = badrating;
 				}
 			})
+		},
+		methods:{
+			selectTab(value){
+//				console.log(value);
+				this.rateType = value;
+				this.$nextTick(()=>{
+					this.$refs.ratings.refresh()
+				})
+			},
+			//根据选择的tab和显示内容，显示对应的评论
+			needShow(rate){
+				if(this.onlyContent &&! rate.text){
+					return false;
+				}
+//				console.log(rate.rateType);
+				if(this.rateType === 2){
+					return true;
+				}else{
+					return rate.rateType === this.rateType;
+				}
+				
+				
+			},
+			showContent(){
+				this.onlyContent = !this.onlyContent;
+				this.$nextTick(()=>{
+					this.$refs.ratings.refresh()
+				})
+			}
 		}
 	}
 </script>
 
 <style lang='scss' scoped>
 .ratings{
+	position: absolute;
+	top:174px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
 	.overview{
 		display: flex;
 		padding: 18px 0;

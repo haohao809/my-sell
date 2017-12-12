@@ -43,7 +43,7 @@
 			<div class="split"></div>
 			<div class="pics">
 				<h1 class="title">商品实景</h1>
-				<Scroll class="pic-wrapper" direction='vertical' ref='picScroll' :data='seller.pics' :probeType='probeType'>
+				<Scroll class="pic-wrapper" direction='horizontal' ref='picScroll' :data='seller.pics' :probeType='probeType' :scrollX='scrollX'>
 					<div class="pic-total" ref='pic'>					
 						<div class="img-item" v-for='item in seller.pics'>
 							<img :src="item" width="120" height="90"/>
@@ -78,7 +78,8 @@
 		data() {
 			return {
 				classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
-				probeType: 2
+				probeType: 2,
+				scrollX: true
 			}
 		},
 		mounted(){

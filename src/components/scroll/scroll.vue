@@ -40,6 +40,10 @@
 			direction:{
 				type: String,
 				default: 'vertical'
+			},
+			scrollX: {
+				type: Boolean,
+				default:false
 			}
 		},
 		mounted() {
@@ -55,6 +59,7 @@
 				this.scroll = new BScroll(this.$refs.wrapper,{
 					probeType: this.probeType,
 					click: this.click,
+					scrollX: this.scrollX,
 					eventPassthrough: this.direction === 'vertical' ? 'horizontal' : 'vertical'
 				})
 				

@@ -1,8 +1,14 @@
 <template>
 <div class="rateType">
-		<span class="block positive" :class='{"active": select===2}' @click='all'>全部3</span>
-		<span class="block positive" :class='{"active": select===0}' @click="recommend">推荐2</span>
-		<span class='block negative' :class='{"deactive": select===1}' @click="whine">吐槽1</span>
+		<span class="block positive" :class='{"active": select===2}' @click='all'>
+			{{text.all}}<span>{{count.all}}</span>
+		</span>
+		<span class="block positive" :class='{"active": select===0}' @click="recommend">
+			{{text.recommend}}<span>{{count.recommend}}</span>
+		</span>
+		<span class='block negative' :class='{"deactive": select===1}' @click="whine">
+			{{text.whine}}<span>{{count.whine}}</span>
+		</span>
 		<p class="desc" :class='{on: toggle}' @click="toggleContent">
 			<i class="icon-check_circle"></i>
 			<span class="text">只看有内容评价</span>
@@ -12,6 +18,29 @@
 
 <script>
 	export default{
+		props:{
+			text: {
+				type: Object,
+				default() {
+					return{
+						all: '全部',
+						recommend: '满意',
+						whine: '不满意'
+					}
+
+				}
+			},
+			count: {
+				type: Object,
+				default(){
+					return{
+						all: 0,
+						recommend: 0,
+						whine: 0
+					}
+				}
+			}
+		},
 		data(){
 			return {
 				select: 2,

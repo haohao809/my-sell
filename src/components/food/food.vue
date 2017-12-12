@@ -37,7 +37,7 @@
 			</div>
 			<div class="rating">
 				<h1>商品评价</h1>
-				<ratingtab @showContent='showContent' @selectTab='selectTab'></ratingtab>
+				<ratingtab @showContent='showContent' @selectTab='selectTab' :text='text' :count='count'></ratingtab>
 				<div class="ratng-wrapper">
 					<ul v-show="food.ratings && food.ratings.length">
 						<li v-show='needShow(rate)' v-for='rate in food.ratings' class='rate-item'>
@@ -82,7 +82,17 @@
 				showFlag: false,
 				cartShow: true,
 				onlyContent: true,
-				tab: 2
+				tab: 2,
+				text:{
+					all: '全部',
+					recommend: '推荐',
+					whine: '吐槽'
+				},
+				count:{
+					all: 3,
+					recommend: 2,
+					whine: 1
+				}
 			}
 		},
 		watch: {

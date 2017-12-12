@@ -31,7 +31,10 @@
 			<div class="split">
 				
 			</div>
-			<ratingTab></ratingTab>
+			<div class="tab-wrapper">
+				<ratingTab :count='count'></ratingTab>
+			</div>
+			
 		</div>
 		<div class="rating-wrapper">
 			
@@ -50,8 +53,37 @@
 		props:{
 			seller: Object
 		},
+		data(){
+			return {
+				count:{
+					all: 0,
+					recommend: 0,
+					whine: 0
+				}
+			}
+		},
 		created(){
 			console.log(this.seller);
+			let  url = '/api/ratings';
+			this.$http.get(url).then((response) =>{
+				response = response.data;
+				console.log(response);
+				if(response.errno === 0){
+					let ratingsArr = response.data;
+					this.count.all = ratingsArr.length;
+					let goodrating = 0;
+					let badrating = 0
+					ratingsArr.map((item)=>{
+						if(item.rateType===0){
+							goodrating++;
+						}else{
+							badrating++;
+						}
+					})
+					this.count.recommend = goodrating;
+					this.count.whine = badrating;
+				}
+			})
 		}
 	}
 </script>
@@ -108,7 +140,9 @@
 		border-top: 1px solid rgba(7,17,27,0.1);
 		background: #f3f5f7;
 	}
-	
+	.tab-wrapper{
+		margin: 0 18px;
+	}
 	
 	
 }

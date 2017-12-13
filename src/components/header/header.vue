@@ -17,7 +17,7 @@
 					<span class="tip">在线支付满20减5元</span>
 				</div>
 			</div>
-			<div class="count">
+			<div class="count" @click='showSeller'>
 				<span class="num">5个</span>
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
@@ -32,10 +32,27 @@
 		<div class="background">
 			<img width="100%" height="100%" src="http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg"/>
 		</div>
+		<div class="detail">
+			<div class="detail-wrapper">
+				<div class="detail-main">
+					<h1 class="name">锦城南(面馆)</h1>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+		export default{
+
+				methods:{
+
+					showSeller(){
+
+						}
+				}
+
+		}
 </script>
 
 <style lang="scss" scoped>
@@ -151,6 +168,21 @@
 				top: 8px;
 			}
 		}
-	}
+		.detail{
+			position: fixed;
+			z-index: 100;
+			top: 0;	
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 1;
+			background: rgba(7,17,27,0.8);
+			display: none;
+			}
+			.detail-wrapper{
+				width: 100%;
+				min-height: 100%;
+			}
+		}
 	
 </style>

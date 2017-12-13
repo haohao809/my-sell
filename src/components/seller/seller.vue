@@ -8,9 +8,9 @@
 					<span class='ratingCount'>({{seller.ratingCount}})</span>
 					<span class='sellCount'>月售{{seller.sellCount}}单</span>
 				</div>
-				<div class="favorite">
-					<i class="icon-favorite"></i>
-					<span class="text">收藏</span>
+				<div class="favorite" @click="toggle">
+					<i class="icon-favorite" :class='{active: !collectFlag}'></i>
+					<span class="text">{{collect}}</span>
 				</div>
 				<div class="mark">
 					<span class="minPrice">
@@ -79,7 +79,9 @@
 			return {
 				classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
 				probeType: 2,
-				scrollX: true
+				scrollX: true,
+				collectFlag: true,
+				collect: '收藏',
 			}
 		},
 		mounted(){
@@ -102,6 +104,14 @@
 					let picTotalWidth = (picWidth+margin)*this.seller.pics.length - margin;
 					this.$refs.pic.style.width = picTotalWidth + 'px';
 					this.$refs.picScroll.refresh();
+				}
+			},
+			toggle(){
+				this.collectFlag = !this.collectFlag;
+				if(this.collectFlag){
+					this.collect = '收藏';
+				}else{
+					this.collect = '已收藏';
 				}
 			}
 		}
@@ -147,6 +157,9 @@
 					color: #d4d6d9;
 					margin-bottom: 4px;
 					font-size: 24px
+				}
+				.active{
+					color:red;
 				}
 				.text{
 					font-size: 12px;

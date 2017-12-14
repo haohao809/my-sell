@@ -86,6 +86,25 @@
 				background-image: url('star24_half@2x.png');
 			}
 		}
+		&.star-48 {
+			.star-item{
+			width: 20px;
+			height: 20px;
+			background-size: 20px 20px;
+			display: inline-block;
+			margin-right: 22px;
+			
+			}
+			.on{
+				background-image: url('star48_on@2x.png');
+			}
+			.off{
+				background-image: url('star48_off@2x.png');
+			}
+			.half{
+				background-image: url('star48_half@2x.png');
+			}
+		}
 
 	}
 </style>

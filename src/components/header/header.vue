@@ -36,6 +36,20 @@
 			<div class="detail-wrapper">
 				<div class="detail-main">
 					<h1 class="name">锦城南(面馆)</h1>
+					<div class="star-wrapper">
+						<star :score='seller.score' size='48'></star>
+					</div>
+					<div class="title">
+						<div class="line"></div>
+						<div class="text">优惠信息</div>
+						<div class="line"></div>
+					</div>
+					<ul class="support">
+						<li v-for='item in seller.supports' class='suport-item'>
+						<span class='icon' :class="classMap[item.type]"></span>
+						<span class="text">{{item.description}}</span>
+					</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -43,8 +57,24 @@
 </template>
 
 <script>
-		export default{
-
+	import star from '@/components/star/star'
+		export default {
+				props:{
+					seller: {
+						type: Object
+					}
+				},
+				components:{
+					star
+				},
+				data(){
+					return{
+						classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
+					}
+				},
+				created(){
+					console.log(this.seller);
+				},
 				methods:{
 
 					showSeller(){
@@ -177,11 +207,79 @@
 			height: 100%;
 			opacity: 1;
 			background: rgba(7,17,27,0.8);
-			display: none;
+			/*display: none;*/
 			}
 			.detail-wrapper{
 				width: 100%;
 				min-height: 100%;
+				.detail-main{
+					margin-top: 64px;
+					padding-bottom: 64px;
+					.name{
+						font-weight: bold;
+						text-align: center;
+						font-size: 16px;
+						line-height: 16px;
+					}
+					.star-wrapper{
+						text-align: center;
+						margin-top: 18px;
+						padding: 2px 0;
+					}
+					.title{
+						display: flex;
+						width: 80%;
+						margin: 24px auto;						
+					}
+					.line{
+						flex: 1;
+						border-bottom: 1px solid rgba(255,255,255,0.2);
+						position: relative;
+						top: -6px;
+					}
+					.text{
+						font-size: 14px;
+						font-weight: bold;
+						padding: 0 12px;
+					}
+					.support{
+						width: 80%;
+						margin: 0 auto;
+						.suport-item{
+							line-height: 10px;
+							border-top: 1px solid rgba(7,17,27,0.1);
+							padding: 8px 12px;
+							.text{
+								font-size: 12px;
+								color: #FFF;
+								
+							}
+							.icon{
+								display: inline-block;
+								width: 16px;
+								height: 16px;
+								margin-right: 3px;
+								background-size: 16px 16px;
+								vertical-align: top;
+							}
+							.decrease{
+								background-image: url('decrease_1@2x.png');
+							}
+							.discount{
+								background-image: url('discount_1@2x.png');
+							}
+							.special{
+								background-image: url('special_1@2x.png');
+							}
+							.invoice{
+								background-image: url('invoice_1@2x.png');
+							}
+							.guarantee{
+								background-image: url('guarantee_1@2x.png');
+							}
+						}
+					}
+				}
 			}
 		}
 	

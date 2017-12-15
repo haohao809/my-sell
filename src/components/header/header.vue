@@ -108,7 +108,7 @@
 		background: rgba(7,17,27,0.5);
 		height: 134px;
 		top: 0;
-		z-index:1;
+		z-index:60;
 		.content{
 			position: relative;
 			padding: 24px 12px 10px 24px;

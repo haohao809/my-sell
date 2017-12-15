@@ -22,7 +22,7 @@
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
-		<div class="bulletin-wrapper">
+		<div class="bulletin-wrapper" @click="showSeller">
 			<span class="bulletin-title"></span>
 			<span class="bulletin-text">
 				粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。
@@ -32,7 +32,7 @@
 		<div class="background">
 			<img width="100%" height="100%" src="http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg"/>
 		</div>
-		<div class="detail">
+		<div class="detail" v-show='showMask'>
 			<div class="detail-wrapper">
 				<div class="detail-main">
 					<h1 class="name">锦城南(面馆)</h1>
@@ -50,6 +50,17 @@
 						<span class="text">{{item.description}}</span>
 					</li>
 					</ul>
+					<div class="title">
+						<div class="line"></div>
+						<div class="text">商家公告</div>
+						<div class="line"></div>
+					</div>
+					<div class="bulletin">
+						<p class="content">{{seller.bulletin}}</p>
+					</div>
+					<div class="close" @click="hideMask">
+						<i class="icon-close"></i>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -70,6 +81,7 @@
 				data(){
 					return{
 						classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
+						showMask: false
 					}
 				},
 				created(){
@@ -78,8 +90,11 @@
 				methods:{
 
 					showSeller(){
-
-						}
+						this.showMask = true;
+					},
+					hideMask(){
+						this.showMask = false;
+					}
 				}
 
 		}
@@ -93,6 +108,7 @@
 		background: rgba(7,17,27,0.5);
 		height: 134px;
 		top: 0;
+		z-index:1;
 		.content{
 			position: relative;
 			padding: 24px 12px 10px 24px;
@@ -207,7 +223,6 @@
 			height: 100%;
 			opacity: 1;
 			background: rgba(7,17,27,0.8);
-			/*display: none;*/
 			}
 			.detail-wrapper{
 				width: 100%;
@@ -246,12 +261,13 @@
 						width: 80%;
 						margin: 0 auto;
 						.suport-item{
-							line-height: 10px;
 							border-top: 1px solid rgba(7,17,27,0.1);
-							padding: 8px 12px;
+							padding: 0px 12px;
+							margin-bottom: 12px;
 							.text{
 								font-size: 12px;
 								color: #FFF;
+								font-weight: normal;
 								
 							}
 							.icon{
@@ -278,6 +294,22 @@
 								background-image: url('guarantee_1@2x.png');
 							}
 						}
+					}
+					.bulletin{
+						width: 80%;
+						margin: 0 auto;
+						.content{
+							font-size: 12px;
+							line-height: 24px;
+							padding: 0 12px;
+						}
+					}
+					.close{
+						font-size: 32px;
+						width: 32px;
+						height: 32px;
+						margin: 0 auto;
+						
 					}
 				}
 			}

@@ -14,7 +14,7 @@
 				<div class="over-right">
 					<div class="score-wrapper">
 						<span class='text'>服务态度</span>
-						<star :score='seller.serviceScore'></star>
+						<star :score='seller.serviceScore' size="36"></star>
 						<span class="score">{{seller.serviceScore}}</span>
 					</div>
 					<div class="score-wrapper">
